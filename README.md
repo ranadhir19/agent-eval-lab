@@ -30,6 +30,25 @@ deterministic.
 | `PREREGISTRATION.md` | The hypotheses and acceptance bounds, frozen before the first run. |
 | `validate.py` | The harness: compile, unit tests, and an experiment re-run that must reproduce `RESULTS.md` byte for byte. |
 
+## Installation
+
+The lab has no dependencies beyond Python itself — every file is
+pure standard library, and there are no API keys, config files or
+environment variables to set. Developed and tested with Python 3.12
+(any current Python 3 works).
+
+```bash
+git clone https://github.com/ranadhir19/agent-eval-lab.git
+cd agent-eval-lab
+python3 validate.py   # self-check: must end with OVERALL PASS
+```
+
+That is the whole install: nothing to build, no package to install.
+The harness compiles every file, runs the unit tests, and re-runs
+the experiment, requiring `RESULTS.md` to come back byte-identical —
+so a final line of `OVERALL PASS` means the lab on your machine
+reproduces the published numbers exactly.
+
 ## Run it
 
 ```bash
@@ -37,6 +56,12 @@ python3 validate.py        # harness: everything below, checked
 python3 run_eval.py        # agent scores on both suites
 python3 experiment.py      # full experiment; rewrites RESULTS.md
 ```
+
+There is no server to configure and nothing takes command-line
+arguments: the three scripts are the whole interface. `run_eval.py`
+prints every agent's pass count and rate with Wilson 95% intervals
+for the clean and flawed suites; `experiment.py` prints the full
+pre-registered experiment and writes the same text to `RESULTS.md`.
 
 ## What the experiment found (measured; see RESULTS.md)
 
